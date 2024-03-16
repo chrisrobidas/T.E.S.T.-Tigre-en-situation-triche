@@ -63,7 +63,7 @@ public class Prof : MonoBehaviour
                 break;
             }
         }
-        if (i == 3 && alertState < AlertLevel.Alert)
+        if (i == (int)AlertLevel.Catching && alertState < AlertLevel.Alert)
         {
             i = (int)AlertLevel.Alert;
         }
@@ -222,6 +222,7 @@ public class Prof : MonoBehaviour
                 Debug.Log("Caught hahahaha");
                 isGameOver = true;
                 lastTimeLeft = (int)currentStateTimeLeft;
+                GameManager.Instance.ShowDefeatPanel();
             }
         }
         if (currentStateTimeLeft < 0)

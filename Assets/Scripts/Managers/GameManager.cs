@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
-    private void ShowDefeatPanel()
+    public void ShowDefeatPanel()
     {
         _defeatPanel.SetActive(true);
         Time.timeScale = 0.0f;
@@ -71,10 +71,12 @@ public class GameManager : MonoBehaviour
     public void HandleRestartClicked()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
     }
 
     public void HandleMainMenuClicked()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 }
