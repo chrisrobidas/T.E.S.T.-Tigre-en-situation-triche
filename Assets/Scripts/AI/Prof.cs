@@ -63,6 +63,10 @@ public class Prof : MonoBehaviour
                 break;
             }
         }
+        if (i == 3 && alertState < AlertLevel.Alert)
+        {
+            i = (int)AlertLevel.Alert;
+        }
         alertState = (AlertLevel)i;
         gameObject.transform.position = tigerAlertPositions[i];
         spriteRenderer.sprite = tigerAlertSprites[i];
