@@ -5,12 +5,20 @@ using Cinemachine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public GameObject camJoueur;
+    public GameObject camProf;
     public GameObject camCell;
+    public GameObject camExamen;
 
     public GameObject pauseMenu;
+    public int state;
 
-    public bool isCheating;
+    public enum CharacterState
+    {
+        OnExam,
+        LookingUp,
+        UsingCell
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,41 +28,47 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+
+
+        if (Input.GetKey("space"))
         {
-            if (camCell.activeSelf)
-            {
-                //Désactive la caméra du cell pour activer celle du joueur
-                camCell.SetActive(false);
-                camJoueur.SetActive(true);
-                isCheating = false;
-            }
-            else
-            {
-                //Désactive cam joueur pour activer celle du cell
-                camCell.SetActive(true);
-                camJoueur.SetActive(false);
-                isCheating = true;
-            }
+
+            //Le joueur triche, active la caméra vers le cell et désactive les 2 autres
+            camCell.SetActive(true);
+            camProf.SetActive(false);
+            camExamen.SetActive(false);
+            state = (int)CharacterState.UsingCell;
 
         }
-        if (isCheating)
+        //Joueur arrête de tricher et retourne au default state (Regarde en avant)
+        if (Input.GetKeyUp("space"))
         {
-            //Code si joueur triche
+
+            camCell.SetActive(false);
+            camProf.SetActive(true);
+            camExamen.SetActive(false);
+            state = (int)CharacterState.LookingUp;
         }
-        else
+        //Le joueur veut avoir l'air moins suspect, regarde la feuille
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            //Code si joueur ne triche pas
+            camProf.SetActive(true);
+            camCell.SetActive(false);
+            camExamen.SetActive(false);
+            state = (int)CharacterState.OnExam;
+
         }
-        if (Input.GetKeyDown("escape"))
+        //Le joueur regade en avant
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            Pause();
+            camProf.SetActive(false);
+            camCell.SetActive(false);
+            camExamen.SetActive(true);
+            state = (int)CharacterState.LookingUp;
+
         }
+
     }
-    public void Pause()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-    }
+
 
 }
