@@ -50,6 +50,9 @@ public class CharacterMovement : MonoBehaviour
             ReturnToClass();
         }
 
+        if(isPaused)
+            return;
+        
         if (Input.GetKey("space"))
         {
             //Le joueur triche, active la caméra vers le cell et désactive les 2 autres
@@ -96,8 +99,9 @@ public class CharacterMovement : MonoBehaviour
     
     private IEnumerator GoToPause()
     {
-        PauseMenuCanvas.GetComponentInChildren<Image>().color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
         isPaused = true;
+
+        PauseMenuCanvas.GetComponentInChildren<Image>().color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
 
         PauseMenuCanvas.SetActive(true);
         BathroomCanvas1.SetActive(true);
