@@ -24,7 +24,7 @@ public class Prof : MonoBehaviour
 
     public AlertLevel alertState = AlertLevel.NonAlert;
     public float startNonAlertDuration = 1;
-    public float[,] minMaxStateDurations = { { 2, 2, 2, 2 }, { 5, 5, 5, 5 } };
+    public List<Vector4> minMaxStateDurations = new List<Vector4> { new Vector4( 2f, 2f, 2f, 2f ), new Vector4( 5f, 5f, 5f, 5f ) };
     public float currentStateTimeLeft = 0;
     float oneSecond = 1.0f;
     int lastTimeLeft = 0;
@@ -223,7 +223,7 @@ public class Prof : MonoBehaviour
         if (currentStateTimeLeft < 0)
         {
             StateTransition();
-            currentStateTimeLeft += UnityEngine.Random.Range(minMaxStateDurations[0, (int)alertState], minMaxStateDurations[1, (int)alertState]);
+            currentStateTimeLeft += UnityEngine.Random.Range(minMaxStateDurations[0][(int)alertState], minMaxStateDurations[1][(int)alertState]);
             if (alertState == AlertLevel.Catching)
             {
                 lastTimeLeft = 5;

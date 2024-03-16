@@ -103,6 +103,9 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   alertState: 0
   startNonAlertDuration: 1
+  minMaxStateDurations:
+  - {x: 4, y: 4, z: 4, w: 4}
+  - {x: 7, y: 7, z: 7, w: 7}
   currentStateTimeLeft: 0
   tigerAlertSprites:
   - {fileID: 21300000, guid: 1e2dc3c6ae341fc4d998b77a9c72fac6, type: 3}
