@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
     public void HandlePlayClicked()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
     }
 
     public void HandlePlayHovered()
