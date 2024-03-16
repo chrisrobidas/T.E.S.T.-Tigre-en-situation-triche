@@ -66,6 +66,7 @@ public class Captcha : MonoBehaviour
             // Create Button
             GameObject buttonObject = new GameObject("CaptchaButton" + i);
             buttonObject.transform.parent = transform;
+            buttonObject.transform.rotation = Quaternion.identity;
 
             Button button = buttonObject.AddComponent<Button>();
             button.onClick.AddListener(() => { ClickImage(buttonObject); });

@@ -42,7 +42,7 @@ public class RandomList : MonoBehaviour
 
         for (int i = 0; i < m_HardCodedStrings.Length; i++)
         {
-            var text = output[i].GetComponent<TextMeshPro>();
+            var text = output[i].GetComponent<TMP_Text>();
             text.text = GetRandomHardCodedString();
 
         }
