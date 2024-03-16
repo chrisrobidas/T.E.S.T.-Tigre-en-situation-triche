@@ -16,13 +16,6 @@ public class Prof : MonoBehaviour
         Catching
     }
 
-    public enum CharacterState
-    {
-        OnExam,
-        LookingUp,
-        UsingCell
-    }
-
     public bool isGameOver = false;
     public bool canCatch = false;
     public CharacterMovement charMovement = null; 
@@ -100,19 +93,17 @@ public class Prof : MonoBehaviour
         return receivedAmount;
     }
 
-    void UpdateProbabilities(CharacterState charState)
+    void UpdateProbabilities(CharacterMovement.CharacterState charState)
     {
         if (alertState >= AlertLevel.Catching)
         {
             return;
         }
         double[] probsChanges = { 0.0, 0.0, 0.0 };
-        double[] previousTransitionProbabilities = (double[])transitionProbabilities.Clone();
-        double removedAmount = 0.0;
 
         switch (charState)
         {
-            case CharacterState.OnExam:
+            case CharacterMovement.CharacterState.OnExam:
                 switch (alertState)
                 {
                     case AlertLevel.NonAlert:
@@ -130,13 +121,8 @@ public class Prof : MonoBehaviour
                 transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
                 transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
                 transitionProbabilities[2] += ReduceFromOtherProbabilities(AlertLevel.Alert, probsChanges[2]);
-                //transitionProbabilities[1] = Math.Max(transitionBaseProbabilities[1], probsChanges[0] + transitionProbabilities[1]);
-                //transitionProbabilities[2] = Math.Max(transitionBaseProbabilities[2], probsChanges[1] + transitionProbabilities[2]);
-                //transitionProbabilities[3] = Math.Max(transitionBaseProbabilities[3], probsChanges[2] + transitionProbabilities[3]);
-                //removedAmount = (previousTransitionProbabilities[1] - transitionProbabilities[1]) + (previousTransitionProbabilities[2] - transitionProbabilities[2]) + (previousTransitionProbabilities[3] - transitionProbabilities[3]);
-                //transitionProbabilities[0] = Math.Min(transitionBaseProbabilities[0], Math.Max(0.0, removedAmount) + transitionProbabilities[0]);
                 break;
-            case CharacterState.LookingUp:
+            case CharacterMovement.CharacterState.LookingUp:
                 switch (alertState)
                 {
                     case AlertLevel.NonAlert:
@@ -154,13 +140,8 @@ public class Prof : MonoBehaviour
                 transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
                 transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
                 transitionProbabilities[2] += ReduceFromOtherProbabilities(AlertLevel.Alert, probsChanges[2]);
-                //transitionProbabilities[1] = Math.Max(transitionBaseProbabilities[1], probsChanges[0] + transitionProbabilities[1]);
-                //transitionProbabilities[2] = Math.Max(transitionBaseProbabilities[2], probsChanges[1] + transitionProbabilities[2]);
-                //transitionProbabilities[3] = Math.Max(transitionBaseProbabilities[3], probsChanges[2] + transitionProbabilities[3]);
-                //removedAmount = (previousTransitionProbabilities[1] - transitionProbabilities[1]) + (previousTransitionProbabilities[2] - transitionProbabilities[2]) + (previousTransitionProbabilities[3] - transitionProbabilities[3]);
-                //transitionProbabilities[0] = Math.Min(transitionBaseProbabilities[0], Math.Max(0.0, removedAmount) + transitionProbabilities[0]);
                 break;
-            case CharacterState.UsingCell:
+            case CharacterMovement.CharacterState.UsingCell:
                 switch (alertState)
                 {
                     case AlertLevel.NonAlert:
@@ -178,25 +159,13 @@ public class Prof : MonoBehaviour
                 transitionProbabilities[3] += GetFromOtherProbabilities(AlertLevel.Catching, probsChanges[2]);
                 transitionProbabilities[2] += GetFromOtherProbabilities(AlertLevel.Alert, probsChanges[1]);
                 transitionProbabilities[1] += GetFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[0]);
-
-                //previousTransitionProbabilities = (double[])transitionProbabilities.Clone();
-                //transitionProbabilities[0] = Math.Max(0, transitionProbabilities[0] - probsChanges.Sum());
-                //double removedProb = previousTransitionProbabilities[0] - transitionProbabilities[0];
-                //double amountToAdd = Math.Min(removedProb, probsChanges[2]);
-                //transitionProbabilities[3] = Math.Min(100, transitionProbabilities[3] + amountToAdd);
-                //removedProb -= transitionProbabilities[3] - previousTransitionProbabilities[3];
-                //amountToAdd = Math.Min(removedProb, probsChanges[1]);
-                //transitionProbabilities[2] = Math.Min(100 - transitionProbabilities[3], transitionProbabilities[2] + amountToAdd);
-                //removedProb -= transitionProbabilities[2] - previousTransitionProbabilities[2];
-                //amountToAdd = Math.Min(removedProb, probsChanges[0]);
-                //transitionProbabilities[1] = Math.Min(100 - transitionProbabilities[3] - transitionProbabilities[2], transitionProbabilities[1] + amountToAdd);
                 break;
             default:
                 break;
         }
     }
 
-    bool IsCaught(CharacterState state)
+    bool IsCaught(CharacterMovement.CharacterState state)
     {
         return UnityEngine.Random.Range(0, caughtProbability) < (int) state;
     }
@@ -220,7 +189,7 @@ public class Prof : MonoBehaviour
         }
         currentStateTimeLeft -= Time.deltaTime;
         // Change to event with subscription to event at some point instead of checking every frame.
-        CharacterState charState = (CharacterState) 1 + (charMovement.isCheating ? 1 : 0);
+        CharacterMovement.CharacterState charState = charMovement.state;
         Debug.Log(charState);
         oneSecond -= Time.deltaTime;
         if (oneSecond < 0.0f)
