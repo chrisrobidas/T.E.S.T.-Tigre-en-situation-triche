@@ -49,7 +49,7 @@ public class RandomList : MonoBehaviour
             var text2 = outputReponse[i].GetComponent<TMP_Text>();
             text.text = m_HarcCodedStrings[i];
             text2.text = m_HarcCodedStrings_Reponse[i];
-            outputReponse[i].SetActive(false);
+            outputReponse[i].GetComponent<TMP_Text>().alpha = 0.0f;
         }
     }
 

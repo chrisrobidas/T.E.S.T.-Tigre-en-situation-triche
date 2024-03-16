@@ -29,12 +29,16 @@ public class Captcha : MonoBehaviour
     [Header("Background sprites settings")]
     [SerializeField] Sprite _backgroundSprite;
     [SerializeField] Color[] _backgroundColors;
+    public GameObject[] outputReponse;
+
 
     private RectTransform _rectTransform;
     private GridLayoutGroup _layoutGroup;
 
     private string _animalToClickName;
     private int _animalToClickCount;
+
+    private int _nbGoodAnswers = 0;
 
     private List<GameObject> _allButtons;
     private List<Coroutine> _allButtonsFadeCoroutines;
@@ -202,6 +206,8 @@ public class Captcha : MonoBehaviour
         if (_animalToClickCount == 0 && !_failureImageObject.activeSelf)
         {
             GameManager.Instance.IncreaseSolvedQuestionsCount();
+            outputReponse[_nbGoodAnswers].GetComponent<TMP_Text>().alpha = 255.0f;
+            _nbGoodAnswers += 1;
             StartCoroutine(ShowSuccessAndGenerateNextCaptcha());
         }
 
@@ -212,7 +218,7 @@ public class Captcha : MonoBehaviour
         for (float elapsedTime = 0f; elapsedTime < _buttonFadeDuration; elapsedTime += Time.deltaTime)
         {
             float normalizedTime = elapsedTime / _buttonFadeDuration;
-            button.GetComponent<Image>().color = Color.Lerp(buttonColor, new Color(buttonColor.r, buttonColor.g, buttonColor.b, 1), normalizedTime);
+            button.GetComponent<Image>().color = Color.Lerp(buttonColor, new Color(buttonColor.r, buttonColor.g, buttonColor.b, 255), normalizedTime);
             button.transform.GetChild(0).GetComponent<Image>().color = Color.Lerp(imageColor, new Color(imageColor.r, imageColor.g, imageColor.b, 1), normalizedTime);
             yield return null;
         }

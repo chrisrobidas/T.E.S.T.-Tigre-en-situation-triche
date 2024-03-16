@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    private int _solvedQuestionsCount;
+    public int _solvedQuestionsCount;
 
     public void IncreaseSolvedQuestionsCount()
     {
