@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
@@ -66,13 +67,14 @@ public class Captcha : MonoBehaviour
             // Create Button
             GameObject buttonObject = new GameObject("CaptchaButton" + i);
             buttonObject.transform.parent = transform;
-            buttonObject.transform.rotation = Quaternion.identity;
 
             Button button = buttonObject.AddComponent<Button>();
             button.onClick.AddListener(() => { ClickImage(buttonObject); });
 
             RectTransform buttonRectTransform = buttonObject.AddComponent<RectTransform>();
             buttonRectTransform.localScale = new Vector3(1, 1, 1);
+            buttonRectTransform.localRotation = Quaternion.identity;
+            buttonRectTransform.localPosition = new Vector3(buttonRectTransform.localPosition.x, buttonRectTransform.localPosition.y, 0);
 
             Image buttonBackground = buttonObject.AddComponent<Image>();
             buttonBackground.sprite = _backgroundSprite;
@@ -97,6 +99,8 @@ public class Captcha : MonoBehaviour
             imageRectTransform.offsetMax = new Vector2(0, 0);
             imageRectTransform.pivot = new Vector2(0.5f, 0.5f);
             imageRectTransform.sizeDelta = _layoutGroup.cellSize;
+            imageRectTransform.localRotation = Quaternion.identity;
+            imageRectTransform.localPosition = new Vector3(imageRectTransform.localPosition.x, imageRectTransform.localPosition.y, 0);
 
             Image image = buttonImageObject.AddComponent<Image>();
             image.sprite = _animalsImages[animalImageToGenerateIndex];
@@ -125,6 +129,8 @@ public class Captcha : MonoBehaviour
 
     private void ClickImage(GameObject button)
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         if (button.GetComponent<CaptchaImage>().ImageName == _animalToClickName)
         {
             _allButtonsFadeCoroutines.Add(StartCoroutine(FadeAndChangeButtonImage(button)));
@@ -133,6 +139,11 @@ public class Captcha : MonoBehaviour
         {
             StartCoroutine(ShowFailureAndGenerateNextCaptcha());
         }
+    }
+
+    private void Update()
+    {
+        Debug.Log(_animalToClickCount);
     }
 
     private IEnumerator ShowSuccessAndGenerateNextCaptcha()
