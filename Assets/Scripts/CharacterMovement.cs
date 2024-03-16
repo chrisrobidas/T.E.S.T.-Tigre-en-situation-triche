@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
 
     private Color baseColor;
 
-    private int state;
+    public CharacterState state;
 
     public enum CharacterState
     {
@@ -51,7 +51,7 @@ public class CharacterMovement : MonoBehaviour
             camProf.SetActive(false);
             camExamen.SetActive(false);
             camPause.SetActive(false);
-            state = (int)CharacterState.UsingCell;
+            state = CharacterState.UsingCell;
 
         }
         //Joueur arrête de tricher et retourne au default state (Regarde en avant)
@@ -61,25 +61,25 @@ public class CharacterMovement : MonoBehaviour
             camProf.SetActive(true);
             camExamen.SetActive(false);
             camPause.SetActive(false);
-            state = (int)CharacterState.LookingUp;
+            state = CharacterState.LookingUp;
         }
         //Le joueur veut avoir l'air moins suspect, regarde la feuille
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            camProf.SetActive(true);
-            camCell.SetActive(false);
-            camExamen.SetActive(false);
-            camPause.SetActive(false);
-            state = (int)CharacterState.OnExam;
-        }
-        //Le joueur regade en avant
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKey(KeyCode.Z))
         {
             camProf.SetActive(false);
             camCell.SetActive(false);
             camExamen.SetActive(true);
             camPause.SetActive(false);
-            state = (int)CharacterState.LookingUp;
+            state = CharacterState.OnExam;
+        }
+        //Le joueur regade en avant
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            camProf.SetActive(true);
+            camCell.SetActive(false);
+            camExamen.SetActive(false);
+            camPause.SetActive(false);
+            state = CharacterState.LookingUp;
         }
     }
 
