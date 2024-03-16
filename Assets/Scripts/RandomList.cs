@@ -45,6 +45,7 @@ public class RandomList : MonoBehaviour
             var text = output[i].GetComponent<TMP_Text>();
             text.text = GetRandomHardCodedString();
 
+
         }
 
     }
