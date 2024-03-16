@@ -18,15 +18,20 @@ public class Prof : MonoBehaviour
 
     public bool isGameOver = false;
     public bool canCatch = false;
-    public CharacterMovement charMovement = null; 
+    public CharacterMovement charMovement = null;
+
+    public SpriteRenderer spriteRenderer = null;
 
     public AlertLevel alertState = AlertLevel.NonAlert;
     public float startNonAlertDuration = 1;
-    public float[,] minMaxStateDurations = { { 2, 2, 2, 2 }, { 5, 5, 5, 5 } };
+    public List<Vector4> minMaxStateDurations = new List<Vector4> { new Vector4( 2f, 2f, 2f, 2f ), new Vector4( 5f, 5f, 5f, 5f ) };
     public float currentStateTimeLeft = 0;
     float oneSecond = 1.0f;
     int lastTimeLeft = 0;
- 
+
+    public List<Sprite> tigerAlertSprites = new List<Sprite>(5);
+    public List<Vector3> tigerAlertPositions = new List<Vector3>(4);
+
     public double[] transitionBaseProbabilities = { 60f, 30f, 10f, 0f };
     public double[] transitionProbabilities;
 
@@ -44,7 +49,7 @@ public class Prof : MonoBehaviour
 
     public int caughtProbability = 5;
 
-    public int logCount = 0;
+    private int logCount = 0;
 
     void StateTransition()
     {
@@ -58,7 +63,13 @@ public class Prof : MonoBehaviour
                 break;
             }
         }
+        if (i == 3 && alertState < AlertLevel.Alert)
+        {
+            i = (int)AlertLevel.Alert;
+        }
         alertState = (AlertLevel)i;
+        gameObject.transform.position = tigerAlertPositions[i];
+        spriteRenderer.sprite = tigerAlertSprites[i];
         Debug.Log(logCount.ToString() + ' ' + alertState);
         string probs = logCount.ToString() + ' ' + transitionProbabilities[0].ToString() + ' ' + transitionProbabilities[1].ToString() + ' ' + transitionProbabilities[2].ToString() + ' ' + transitionProbabilities[3].ToString() + ' ' + transitionProbabilities.Sum();
         Debug.Log(probs);
@@ -118,9 +129,9 @@ public class Prof : MonoBehaviour
                     default:
                         break;
                 }
-                transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
-                transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
                 transitionProbabilities[2] += ReduceFromOtherProbabilities(AlertLevel.Alert, probsChanges[2]);
+                transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
+                transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
                 break;
             case CharacterMovement.CharacterState.LookingUp:
                 switch (alertState)
@@ -137,9 +148,9 @@ public class Prof : MonoBehaviour
                     default:
                         break;
                 }
-                transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
-                transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
                 transitionProbabilities[2] += ReduceFromOtherProbabilities(AlertLevel.Alert, probsChanges[2]);
+                transitionProbabilities[1] += ReduceFromOtherProbabilities(AlertLevel.Suspicious, probsChanges[1]);
+                transitionProbabilities[0] += ReduceFromOtherProbabilities(AlertLevel.NonAlert, probsChanges[0]);
                 break;
             case CharacterMovement.CharacterState.UsingCell:
                 switch (alertState)
@@ -172,9 +183,13 @@ public class Prof : MonoBehaviour
 
     void Start()
     {
-        charMovement = GetComponent<CharacterMovement>();
+        charMovement = GameObject.Find("Cell").GetComponent<CharacterMovement>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         transitionProbabilities = (double[]) transitionBaseProbabilities.Clone();
         alertState = AlertLevel.NonAlert;
+        transform.position = tigerAlertPositions[0];
+        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        spriteRenderer.sprite = tigerAlertSprites[0];
 
         currentStateTimeLeft = startNonAlertDuration;
     }
@@ -212,7 +227,7 @@ public class Prof : MonoBehaviour
         if (currentStateTimeLeft < 0)
         {
             StateTransition();
-            currentStateTimeLeft += UnityEngine.Random.Range(minMaxStateDurations[0, (int)alertState], minMaxStateDurations[1, (int)alertState]);
+            currentStateTimeLeft += UnityEngine.Random.Range(minMaxStateDurations[0][(int)alertState], minMaxStateDurations[1][(int)alertState]);
             if (alertState == AlertLevel.Catching)
             {
                 lastTimeLeft = 5;
