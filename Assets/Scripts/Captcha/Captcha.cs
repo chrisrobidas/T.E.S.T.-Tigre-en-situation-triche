@@ -21,6 +21,7 @@ public class Captcha : MonoBehaviour
     [SerializeField] TMP_Text _helpTextToClick;
     [SerializeField] GameObject _successImageObject;
     [SerializeField] GameObject _failureImageObject;
+    [SerializeField] GameObject _phoneWelcomePanelObject;
 
     [Header("Animals settings")]
     [SerializeField] string[] _animalsNames;
@@ -38,6 +39,11 @@ public class Captcha : MonoBehaviour
 
     private List<GameObject> _allButtons;
     private List<Coroutine> _allButtonsFadeCoroutines;
+
+    public void HideWelcomePanel()
+    {
+        _phoneWelcomePanelObject.SetActive(false);
+    }
 
     private void Awake()
     {
@@ -148,6 +154,7 @@ public class Captcha : MonoBehaviour
         _successImageObject.SetActive(false);
         CleanupCaptcha();
         _animalToClickCount = 0;
+        _phoneWelcomePanelObject.SetActive(true);
         GenerateCaptcha();
     }
 
@@ -158,6 +165,7 @@ public class Captcha : MonoBehaviour
         _failureImageObject.SetActive(false);
         CleanupCaptcha();
         _animalToClickCount = 0;
+        _phoneWelcomePanelObject.SetActive(true);
         GenerateCaptcha();
     }
 
