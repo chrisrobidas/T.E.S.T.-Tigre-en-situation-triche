@@ -40,11 +40,12 @@ public class RandomList : MonoBehaviour
     void FillList()
     {
 
-        //for (int i = 0; i < m_HardCodedStrings.Length; i++)
-        //{
-        //    var text = output[i].GetComponent<TextMeshPro>();
-        //    text.text = GetRandomHardCodedString();
-        //}
+        for (int i = 0; i < m_HardCodedStrings.Length; i++)
+        {
+            var text = output[i].GetComponent<TMP_Text>();
+            text.text = GetRandomHardCodedString();
+
+        }
 
     }
 
