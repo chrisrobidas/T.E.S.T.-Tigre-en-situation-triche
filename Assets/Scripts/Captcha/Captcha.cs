@@ -141,11 +141,6 @@ public class Captcha : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log(_animalToClickCount);
-    }
-
     private IEnumerator ShowSuccessAndGenerateNextCaptcha()
     {
         _successImageObject.SetActive(true);
