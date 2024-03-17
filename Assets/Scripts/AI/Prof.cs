@@ -24,7 +24,7 @@ public class Prof : MonoBehaviour
 
     public AlertLevel alertState = AlertLevel.NonAlert;
     public float startNonAlertDuration = 1;
-    public List<Vector4> minMaxStateDurations = new List<Vector4> { new Vector4( 2f, 2f, 2f, 2f ), new Vector4( 5f, 5f, 5f, 5f ) };
+    public List<Vector4> minMaxStateDurations = new List<Vector4> { new Vector4(2f, 2f, 2f, 2f), new Vector4(5f, 5f, 5f, 5f) };
     public float currentStateTimeLeft = 0;
     float oneSecond = 1.0f;
     int lastTimeLeft = 0;
@@ -50,6 +50,8 @@ public class Prof : MonoBehaviour
     public int caughtProbability = 5;
 
     private int logCount = 0;
+    public AudioSource src;
+
 
     void StateTransition()
     {
@@ -67,6 +69,11 @@ public class Prof : MonoBehaviour
         {
             i = (int)AlertLevel.Alert;
         }
+        if (alertState != (AlertLevel)i)
+        {
+            src.PlayOneShot(src.clip);
+
+        }
         alertState = (AlertLevel)i;
         gameObject.transform.position = tigerAlertPositions[i];
         spriteRenderer.sprite = tigerAlertSprites[i];
@@ -76,11 +83,11 @@ public class Prof : MonoBehaviour
         logCount++;
     }
 
-    double GetFromOtherProbabilities (AlertLevel alertLevel, double wantedAmount)
+    double GetFromOtherProbabilities(AlertLevel alertLevel, double wantedAmount)
     {
         double[] previousTransitionProbabilities = (double[])transitionProbabilities.Clone();
         double receivedAmount = 0.0;
-        for (int i = 0; i < (int)alertLevel && receivedAmount < wantedAmount;i++)
+        for (int i = 0; i < (int)alertLevel && receivedAmount < wantedAmount; i++)
         {
             transitionProbabilities[i] = Math.Max(0.0, transitionProbabilities[i] - (wantedAmount - receivedAmount));
             receivedAmount += previousTransitionProbabilities[i] - transitionProbabilities[i];
@@ -88,7 +95,7 @@ public class Prof : MonoBehaviour
         return receivedAmount;
     }
 
-    double ReduceFromOtherProbabilities (AlertLevel alertLevel, double wantedAmount)
+    double ReduceFromOtherProbabilities(AlertLevel alertLevel, double wantedAmount)
     {
         if (alertLevel == AlertLevel.Catching)
         {
@@ -178,14 +185,14 @@ public class Prof : MonoBehaviour
 
     bool IsCaught(CharacterMovement.CharacterState state)
     {
-        return UnityEngine.Random.Range(0, caughtProbability) < (int) state;
+        return UnityEngine.Random.Range(0, caughtProbability) < (int)state;
     }
 
     void Start()
     {
         charMovement = GameObject.Find("Cell").GetComponent<CharacterMovement>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        transitionProbabilities = (double[]) transitionBaseProbabilities.Clone();
+        transitionProbabilities = (double[])transitionBaseProbabilities.Clone();
         alertState = AlertLevel.NonAlert;
         transform.position = tigerAlertPositions[0];
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
