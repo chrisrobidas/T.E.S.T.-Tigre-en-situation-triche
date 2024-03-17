@@ -77,9 +77,7 @@ public class Prof : MonoBehaviour
         alertState = (AlertLevel)i;
         gameObject.transform.position = tigerAlertPositions[i];
         spriteRenderer.sprite = tigerAlertSprites[i];
-        Debug.Log(logCount.ToString() + ' ' + alertState);
         string probs = logCount.ToString() + ' ' + transitionProbabilities[0].ToString() + ' ' + transitionProbabilities[1].ToString() + ' ' + transitionProbabilities[2].ToString() + ' ' + transitionProbabilities[3].ToString() + ' ' + transitionProbabilities.Sum();
-        Debug.Log(probs);
         logCount++;
     }
 
@@ -212,7 +210,6 @@ public class Prof : MonoBehaviour
         currentStateTimeLeft -= Time.deltaTime;
         // Change to event with subscription to event at some point instead of checking every frame.
         CharacterMovement.CharacterState charState = charMovement.state;
-        Debug.Log(charState);
         oneSecond -= Time.deltaTime;
         if (oneSecond < 0.0f)
         {
