@@ -54,6 +54,11 @@ public class MenuManager : MonoBehaviour
         PlayCircle.SetActive(true);
     }
 
+    public void HandleHowToPlayClicked()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     public void HandleHowToPlayHovered()
     {
         DeactivateCircles();
