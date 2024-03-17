@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class MenuManager : MonoBehaviour
 {
     public GameObject PlayCircle;
+    public GameObject HowToPlayCircle;
     public GameObject OptionCircle;
     public GameObject CreditsCircle;
     public GameObject QuitCircle;
@@ -35,6 +36,7 @@ public class MenuManager : MonoBehaviour
 
     public void DeactivateCircles(){
         PlayCircle.SetActive(false);
+        HowToPlayCircle.SetActive(false);
         OptionCircle.SetActive(false);
         CreditsCircle.SetActive(false);
         QuitCircle.SetActive(false);
@@ -50,6 +52,12 @@ public class MenuManager : MonoBehaviour
     {
         DeactivateCircles();
         PlayCircle.SetActive(true);
+    }
+
+    public void HandleHowToPlayHovered()
+    {
+        DeactivateCircles();
+        HowToPlayCircle.SetActive(true);
     }
 
     public void HandleOptionsHovered()

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -35,24 +36,23 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+        Debug.Log(isPaused);
+
+        if (isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
-            camCell.SetActive(false);
-            camProf.SetActive(false);
-            camExamen.SetActive(false);
-            camPause.SetActive(true);
-            Invoke(nameof(StopTime), 1.5f);
-            StartCoroutine(GoToPause());
-        }
-        else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
-        {
-            CancelInvoke(nameof(StopTime));
             ReturnToClass();
+            return;
         }
 
         if(isPaused)
             return;
-        
+
+        if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            GoToPause();
+            return;
+        }
+
         if (Input.GetKey("space"))
         {
             //Le joueur triche, active la caméra vers le cell et désactive les 2 autres
@@ -97,9 +97,17 @@ public class CharacterMovement : MonoBehaviour
         Time.timeScale = 0.0f;
     }
     
-    private IEnumerator GoToPause()
+    private void GoToPause()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         isPaused = true;
+
+        camCell.SetActive(false);
+        camProf.SetActive(false);
+        camExamen.SetActive(false);
+        camPause.SetActive(true);
+        CancelInvoke(nameof(StopTime));
+        Invoke(nameof(StopTime), 1.5f);
 
         PauseMenuCanvas.GetComponentInChildren<Image>().color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
 
@@ -108,17 +116,16 @@ public class CharacterMovement : MonoBehaviour
         BathroomCanvas2.SetActive(true);
         TimerCanvas.SetActive(false);
 
-        while (PauseMenuCanvas.GetComponentInChildren<Image>().color.a < baseColor.a)
-        {
-            PauseMenuCanvas.GetComponentInChildren<Image>().color = Color.Lerp(baseColor, new Color(baseColor.r, baseColor.g, baseColor.b, baseColor.a), Time.deltaTime * 10);
-            yield return null;
-        }
+        PauseMenuCanvas.GetComponentInChildren<Image>().color = baseColor;
     }
     
     public void ReturnToClass()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        CancelInvoke(nameof(StopTime));
         Time.timeScale = 1.0f;
-        
+        isPaused = false;
+
         camCell.SetActive(false);
         camProf.SetActive(true);
         camExamen.SetActive(false);
@@ -128,8 +135,6 @@ public class CharacterMovement : MonoBehaviour
         BathroomCanvas1.SetActive(false);
         BathroomCanvas2.SetActive(false);
         TimerCanvas.SetActive(true);
-        
-        isPaused = false;
     }
 
     public void HandleAbandonClicked()

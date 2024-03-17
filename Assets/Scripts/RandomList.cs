@@ -14,7 +14,7 @@ public class RandomList : MonoBehaviour
 
     void Start()
     {
-        m_HarcCodedStrings.Add("Quelle est la somme de 1+1");
+        m_HarcCodedStrings.Add("Quelle est la somme de 1+1 ?");
         m_HarcCodedStrings.Add("Quel est le poids total de 8 rhinocéros ?");
         m_HarcCodedStrings.Add("Quand est-ce qu'on mange ?");
         m_HarcCodedStrings.Add("Qui est le meilleur professeur ?");
@@ -26,16 +26,16 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings.Add("Qui est le plus fort entre un tigre et un lion ?");
         m_HarcCodedStrings.Add("Est-ce que les ananas vont sur la pizza ?");
         m_HarcCodedStrings.Add("Quel est le bébé du tigre ?");
-        m_HarcCodedStrings.Add("Combien pèse Madame Griffe  ?");
+        m_HarcCodedStrings.Add("Combien pèse Madame Griffe ?");
         m_HarcCodedStrings.Add("iOS ou Android ? ");
         m_HarcCodedStrings.Add("Pourquoi les magasins ouverts 24h/24 ont-ils des serrures ?");
-        m_HarcCodedStrings.Add("Qui était là en premier : l'œuf ou la poule ?");
+        m_HarcCodedStrings.Add("Qui était là en premier : l'oeuf ou la poule ?");
         m_HarcCodedStrings.Add("Pourquoi les biscuits durs deviennent-ils mous et inversement ?");
         m_HarcCodedStrings.Add("Quel est le synonyme de synonyme ?");
         m_HarcCodedStrings.Add("Comment s'appelait le Capitaine Crochet avant de perdre sa main ?");
-        m_HarcCodedStrings.Add("Burger King ou Mcdonalds ");
-        m_HarcCodedStrings.Add("Quelles sont les 20 premières décimales de PI");
-        m_HarcCodedStrings.Add("Quel est le mélange du tigre et du lion");
+        m_HarcCodedStrings.Add("Burger King ou Mcdonalds ?");
+        m_HarcCodedStrings.Add("Quelles sont les 5 premières décimales de PI ?");
+        m_HarcCodedStrings.Add("Quel est le mélange du tigre et du lion ?");
 
 
         m_HarcCodedStrings_Reponse.Add("2.");
@@ -47,19 +47,19 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings_Reponse.Add("Si tu le caches dans ta cave.");
         m_HarcCodedStrings_Reponse.Add("Les humains.");
         m_HarcCodedStrings_Reponse.Add("Asie du sud.");
-        m_HarcCodedStrings_Reponse.Add("Le tigre");
+        m_HarcCodedStrings_Reponse.Add("Le tigre.");
         m_HarcCodedStrings_Reponse.Add("Non, ce ne serait plus une pizza.");
         m_HarcCodedStrings_Reponse.Add(" Le tigreau.");
         m_HarcCodedStrings_Reponse.Add("Entre 65 et 170 kilos.");
         m_HarcCodedStrings_Reponse.Add("Android.");
-        m_HarcCodedStrings_Reponse.Add("Pourquoi pas ? ");
+        m_HarcCodedStrings_Reponse.Add("Pourquoi pas ?");
         m_HarcCodedStrings_Reponse.Add("L'oeuf.");
-        m_HarcCodedStrings_Reponse.Add("Pour encourager le capitalisme. ");
+        m_HarcCodedStrings_Reponse.Add("Pour encourager le capitalisme.");
         m_HarcCodedStrings_Reponse.Add("Identique.");
         m_HarcCodedStrings_Reponse.Add("Jacques.");
         m_HarcCodedStrings_Reponse.Add("Mcdo pour les frites.");
-        m_HarcCodedStrings_Reponse.Add("14159265358979323846.");
-        m_HarcCodedStrings_Reponse.Add("Le ligre. ");
+        m_HarcCodedStrings_Reponse.Add("14159.");
+        m_HarcCodedStrings_Reponse.Add("Le ligre.");
 
 
 

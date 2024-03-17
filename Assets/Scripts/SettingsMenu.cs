@@ -37,9 +37,9 @@ public class SettingsMenu : MonoBehaviour
     {
         List<string> displayModeOptions = new List<string>
         {
-            "Full Screen Window",
-            "Windowed",
-            "Exclusive Full Screen"
+            "Plein écran fenêtré",
+            "Fenêtré",
+            "Plein écran exclusif"
         };
 
         _selectedDisplayMode = Screen.fullScreenMode;
