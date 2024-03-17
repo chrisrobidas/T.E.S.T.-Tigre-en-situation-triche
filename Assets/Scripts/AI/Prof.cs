@@ -215,14 +215,14 @@ public class Prof : MonoBehaviour
 
         if (alertState == AlertLevel.Catching)
         {
-
-            if (IsCaught(charState) && lastTimeLeft >= (int)currentStateTimeLeft && canCatch)
+            if (canCatch && ((float) lastTimeLeft) >= currentStateTimeLeft && IsCaught(charState))
             {
                 // Set caught to end game
                 Debug.Log("Caught hahahaha");
                 isGameOver = true;
-                lastTimeLeft = (int)currentStateTimeLeft;
+                GameManager.Instance.ShowDefeatPanel();
             }
+            lastTimeLeft = (int)currentStateTimeLeft;
         }
         if (currentStateTimeLeft < 0)
         {
