@@ -3254,7 +3254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'T.E.S.T: Tigre en Situation Triche'
+  m_text: 'T.E.S.T: Tigre En Situation Triche'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8491db77b1784896ad69ddd90ca5223, type: 2}
   m_sharedMaterial: {fileID: 5864633023730564359, guid: b8491db77b1784896ad69ddd90ca5223,
