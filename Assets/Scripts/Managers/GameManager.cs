@@ -1,29 +1,34 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     [Header("Game settings")]
-    [SerializeField] int _questionsToSolve;
-    [SerializeField] float _gameTime = 300;
+    [SerializeField] private int _questionsToSolve;
+    [SerializeField] private float _gameTime = 300;
 
     [Header("Panels")]
-    [SerializeField] GameObject _endGamePanel;
-    [SerializeField] GameObject _defeatPanel;
+    [SerializeField] private GameObject _endGamePanel;
+    [SerializeField] private GameObject _defeatPanel;
+    [SerializeField] private GameObject _tigerPanel;
 
     [Header("Grades Images")]
-    [SerializeField] GameObject _goodImageObject;
-    [SerializeField] GameObject _okayImageObject;
-    [SerializeField] GameObject _badImageObject;
+    [SerializeField] private GameObject _goodImageObject;
+    [SerializeField] private GameObject _okayImageObject;
+    [SerializeField] private GameObject _badImageObject;
 
     [Header("Timer")]
-    [SerializeField] TMP_Text _timerText;
-    [SerializeField] TMP_Text _resultText;
+    [SerializeField] private TMP_Text _timerText;
+    [SerializeField] private TMP_Text _resultText;
 
     public static GameManager Instance { get; private set; }
 
     public int _solvedQuestionsCount;
+
+    private AudioSource _audioSource;
 
     public void IncreaseSolvedQuestionsCount()
     {
@@ -37,6 +42,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -81,8 +88,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
-    public void ShowDefeatPanel()
+    public IEnumerator ShowDefeatPanel()
     {
+        _tigerPanel.SetActive(true);
+        _audioSource.Play();
+
+        yield return new WaitForSeconds(3);
+
+        _tigerPanel.SetActive(false);
         _defeatPanel.SetActive(true);
         Time.timeScale = 0.0f;
     }

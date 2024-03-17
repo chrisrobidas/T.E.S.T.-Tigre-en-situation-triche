@@ -222,7 +222,7 @@ public class Prof : MonoBehaviour
                 Debug.Log("Caught hahahaha");
                 isGameOver = true;
                 lastTimeLeft = (int)currentStateTimeLeft;
-                GameManager.Instance.ShowDefeatPanel();
+                StartCoroutine(GameManager.Instance.ShowDefeatPanel());
             }
         }
         if (currentStateTimeLeft < 0)
