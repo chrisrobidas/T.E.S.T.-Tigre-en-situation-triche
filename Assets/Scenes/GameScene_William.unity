@@ -4670,7 +4670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questionsToSolve: 10
-  _gameTime: 10
+  _gameTime: 300
   _endGamePanel: {fileID: 330882637}
   _defeatPanel: {fileID: 459540012}
   _timerText: {fileID: 1548739342}
