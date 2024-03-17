@@ -19,6 +19,7 @@ public class Captcha : MonoBehaviour
 
     [Header("Required UI elements")]
     [SerializeField] TMP_Text _helpTextToClick;
+    [SerializeField] Image _helpImageToClick;
     [SerializeField] GameObject _successImageObject;
     [SerializeField] GameObject _failureImageObject;
     [SerializeField] GameObject _phoneWelcomePanelObject;
@@ -66,8 +67,10 @@ public class Captcha : MonoBehaviour
     private void GenerateCaptcha()
     {
         int captchaSize = Random.Range(_minSize, _maxSize + 1);
-        _animalToClickName = _animalsNames[Random.Range(0, _animalsImages.Length)];
+        int randomAnimalIndex = Random.Range(0, _animalsImages.Length);
+        _animalToClickName = _animalsNames[randomAnimalIndex];
         _helpTextToClick.text = _animalToClickName;
+        _helpImageToClick.sprite = _animalsImages[randomAnimalIndex];
 
         float imagesWidth = _rectTransform.rect.height / captchaSize;
         _layoutGroup.cellSize = new Vector2(imagesWidth, imagesWidth);
