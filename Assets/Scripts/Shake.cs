@@ -23,6 +23,7 @@ public class Shake : MonoBehaviour
             transform.position = initialPosition;
             
             duration -= Time.deltaTime;
+            Debug.Log(Time.deltaTime);
             float randomShakeX = Random.Range(0f, 1f);
             float randomShakeY = Random.Range(0f, 1f);
 
