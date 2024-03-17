@@ -33,6 +33,8 @@ public class Captcha : MonoBehaviour
     public GameObject[] outputReponse;
     public AudioSource src;
 
+    public AudioClip goodAnswerClip;
+    public AudioClip badAnswerClip;
 
     private RectTransform _rectTransform;
     private GridLayoutGroup _layoutGroup;
@@ -165,6 +167,9 @@ public class Captcha : MonoBehaviour
 
     private IEnumerator ShowFailureAndGenerateNextCaptcha()
     {
+        src.clip = badAnswerClip;
+        src.PlayOneShot(src.clip);
+        
         _failureImageObject.SetActive(true);
         yield return new WaitForSeconds(_popupDuration);
         _failureImageObject.SetActive(false);
@@ -212,6 +217,8 @@ public class Captcha : MonoBehaviour
             GameManager.Instance.IncreaseSolvedQuestionsCount();
             outputReponse[_nbGoodAnswers].GetComponent<TMP_Text>().alpha = 255.0f;
             _nbGoodAnswers += 1;
+
+            src.clip = goodAnswerClip;
             src.PlayOneShot(src.clip);
             StartCoroutine(ShowSuccessAndGenerateNextCaptcha());
         }

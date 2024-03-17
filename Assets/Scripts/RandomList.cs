@@ -34,7 +34,7 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings.Add("Quel est le synonyme de synonyme ?");
         m_HarcCodedStrings.Add("Comment s'appelait le Capitaine Crochet avant de perdre sa main ?");
         m_HarcCodedStrings.Add("Burger King ou Mcdonalds ?");
-        m_HarcCodedStrings.Add("Quelles sont les 5 premières décimales de PI ?");
+        m_HarcCodedStrings.Add("Quelles sont les 6 dernières décimales de PI ?");
         m_HarcCodedStrings.Add("Quel est le mélange du tigre et du lion ?");
 
 
@@ -58,16 +58,8 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings_Reponse.Add("Identique.");
         m_HarcCodedStrings_Reponse.Add("Jacques.");
         m_HarcCodedStrings_Reponse.Add("Mcdo pour les frites.");
-        m_HarcCodedStrings_Reponse.Add("14159.");
+        m_HarcCodedStrings_Reponse.Add("133742.");
         m_HarcCodedStrings_Reponse.Add("Le ligre.");
-
-
-
-
-
-
-
-
 
         ShuffleLists();
 
