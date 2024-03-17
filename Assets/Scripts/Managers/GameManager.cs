@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         _audioSource = GetComponent<AudioSource>();
 
         if (Instance != null && Instance != this)
