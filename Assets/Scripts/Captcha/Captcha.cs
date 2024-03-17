@@ -31,6 +31,7 @@ public class Captcha : MonoBehaviour
     [SerializeField] Sprite _backgroundSprite;
     [SerializeField] Color[] _backgroundColors;
     public GameObject[] outputReponse;
+    public AudioSource src;
 
 
     private RectTransform _rectTransform;
@@ -211,6 +212,7 @@ public class Captcha : MonoBehaviour
             GameManager.Instance.IncreaseSolvedQuestionsCount();
             outputReponse[_nbGoodAnswers].GetComponent<TMP_Text>().alpha = 255.0f;
             _nbGoodAnswers += 1;
+            src.PlayOneShot(src.clip);
             StartCoroutine(ShowSuccessAndGenerateNextCaptcha());
         }
 

@@ -26,7 +26,7 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings.Add("Qui est le plus fort entre un tigre et un lion ?");
         m_HarcCodedStrings.Add("Est-ce que les ananas vont sur la pizza ?");
         m_HarcCodedStrings.Add("Quel est le bébé du tigre ?");
-        m_HarcCodedStrings.Add("Combien pèse Madame Griffe ? ?");
+        m_HarcCodedStrings.Add("Combien pèse Madame Griffe  ?");
         m_HarcCodedStrings.Add("iOS ou Android ? ");
         m_HarcCodedStrings.Add("Pourquoi les magasins ouverts 24h/24 ont-ils des serrures ?");
         m_HarcCodedStrings.Add("Qui était là en premier : l'œuf ou la poule ?");
