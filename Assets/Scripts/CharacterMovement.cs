@@ -36,8 +36,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(isPaused);
-
         if (isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             ReturnToClass();

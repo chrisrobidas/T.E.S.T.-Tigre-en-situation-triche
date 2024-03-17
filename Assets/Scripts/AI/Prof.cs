@@ -221,8 +221,6 @@ public class Prof : MonoBehaviour
         {
             if (canCatch && ((float) lastTimeLeft) >= currentStateTimeLeft && IsCaught(charState))
             {
-                // Set caught to end game
-                Debug.Log("Caught hahahaha");
                 isGameOver = true;
                 StartCoroutine(GameManager.Instance.ShowDefeatPanel());
             }
