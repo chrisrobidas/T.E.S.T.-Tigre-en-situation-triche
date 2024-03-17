@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -10,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public GameObject OptionCircle;
     public GameObject CreditsCircle;
     public GameObject QuitCircle;
+    public TMP_Text BestScore;
 
     public GameObject SettingsCanvas;
 
@@ -18,6 +20,17 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         DeactivateCircles();
+        
+        int bestScore = PlayerPrefs.GetInt("score");
+        float bestTime = PlayerPrefs.GetFloat("time");
+        
+        int minutes = (int)(bestTime / 60);
+        int seconds = (int)(bestTime % 60);
+        
+        if (bestScore > 0)
+        {
+            BestScore.text = $"Meilleur score : {bestScore}% en {minutes + ":" + seconds.ToString("00")}";
+        }
     }
 
     public void DeactivateCircles(){

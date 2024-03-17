@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,9 +8,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Game settings")]
-    [SerializeField] private int _questionsToSolve;
-    [SerializeField] private float _gameTime = 300;
-
+    [SerializeField] int _questionsToSolve;
+    [SerializeField] float _gameTime = 300;
+    private float currentTime;
+    
     [Header("Panels")]
     [SerializeField] private GameObject _endGamePanel;
     [SerializeField] private GameObject _defeatPanel;
@@ -53,14 +55,19 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        currentTime = _gameTime;
+    }
+
     private void Update()
     {
-        _gameTime -= Time.deltaTime;
-        int minutes = (int)(_gameTime / 60);
-        int seconds = (int)(_gameTime % 60);
+        currentTime -= Time.deltaTime;
+        int minutes = (int)(currentTime / 60);
+        int seconds = (int)(currentTime % 60);
         _timerText.text = minutes + ":" + seconds.ToString("00");
 
-        if (_gameTime <= 0.0f)
+        if (currentTime <= 0.0f)
         {
             ShowEndGamePanel();
         }
@@ -83,11 +90,39 @@ public class GameManager : MonoBehaviour
         {
             _badImageObject.SetActive(true);
         }
+        SaveScore();
 
         _endGamePanel.SetActive(true);
         Time.timeScale = 0.0f;
     }
+    
+    public void SaveScore()
+    {
+        float time = _gameTime - currentTime;
+        int score = (int)(((float)_solvedQuestionsCount / _questionsToSolve) * 100);
 
+        int bestScore = PlayerPrefs.GetInt("score");
+        float bestTime = PlayerPrefs.GetFloat("time");
+        //int minutes = (int)(currentTime / 60);
+        //int seconds = (int)(currentTime % 60);
+        //_timerText.text = minutes + ":" + seconds.ToString("00");
+
+        if (score > bestScore)
+        {
+            PlayerPrefs.SetInt("score", score);
+            PlayerPrefs.SetFloat("time", time);
+        } else if (score == bestScore && time < bestTime)
+        {
+            PlayerPrefs.SetInt("score", score);
+            PlayerPrefs.SetFloat("time", time);
+        }
+    }
+
+    public void LoadScore()
+    {
+        
+    }
+    
     public IEnumerator ShowDefeatPanel()
     {
         _tigerPanel.SetActive(true);

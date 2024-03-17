@@ -11,6 +11,10 @@ public class CharacterMovement : MonoBehaviour
     public GameObject camPause;
 
     public GameObject PauseMenuCanvas;
+    public GameObject BathroomCanvas1;
+    public GameObject BathroomCanvas2;
+    public GameObject TimerCanvas;
+    
     private bool isPaused;
 
     private Color baseColor;
@@ -37,13 +41,18 @@ public class CharacterMovement : MonoBehaviour
             camProf.SetActive(false);
             camExamen.SetActive(false);
             camPause.SetActive(true);
+            Invoke(nameof(StopTime), 1.5f);
             StartCoroutine(GoToPause());
         }
         else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
+            CancelInvoke(nameof(StopTime));
             ReturnToClass();
         }
 
+        if(isPaused)
+            return;
+        
         if (Input.GetKey("space"))
         {
             //Le joueur triche, active la caméra vers le cell et désactive les 2 autres
@@ -83,12 +92,21 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    private void StopTime()
+    {
+        Time.timeScale = 0.0f;
+    }
+    
     private IEnumerator GoToPause()
     {
-        PauseMenuCanvas.GetComponentInChildren<Image>().color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
         isPaused = true;
 
+        PauseMenuCanvas.GetComponentInChildren<Image>().color = new Color(baseColor.r, baseColor.g, baseColor.b, 0);
+
         PauseMenuCanvas.SetActive(true);
+        BathroomCanvas1.SetActive(true);
+        BathroomCanvas2.SetActive(true);
+        TimerCanvas.SetActive(false);
 
         while (PauseMenuCanvas.GetComponentInChildren<Image>().color.a < baseColor.a)
         {
@@ -96,20 +114,22 @@ public class CharacterMovement : MonoBehaviour
             yield return null;
         }
     }
-
-    private void GoToClass()
-    {
-        PauseMenuCanvas.SetActive(false);
-        isPaused = false;
-    }
-
+    
     public void ReturnToClass()
     {
+        Time.timeScale = 1.0f;
+        
         camCell.SetActive(false);
         camProf.SetActive(true);
         camExamen.SetActive(false);
         camPause.SetActive(false);
-        GoToClass();
+
+        PauseMenuCanvas.SetActive(false);
+        BathroomCanvas1.SetActive(false);
+        BathroomCanvas2.SetActive(false);
+        TimerCanvas.SetActive(true);
+        
+        isPaused = false;
     }
 
     public void HandleAbandonClicked()
