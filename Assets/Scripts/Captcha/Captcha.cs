@@ -21,6 +21,7 @@ public class Captcha : MonoBehaviour
     [SerializeField] TMP_Text _helpTextToClick;
     [SerializeField] GameObject _successImageObject;
     [SerializeField] GameObject _failureImageObject;
+    [SerializeField] GameObject _phoneWelcomePanelObject;
 
     [Header("Animals settings")]
     [SerializeField] string[] _animalsNames;
@@ -29,6 +30,8 @@ public class Captcha : MonoBehaviour
     [Header("Background sprites settings")]
     [SerializeField] Sprite _backgroundSprite;
     [SerializeField] Color[] _backgroundColors;
+    public GameObject[] outputReponse;
+
 
     private RectTransform _rectTransform;
     private GridLayoutGroup _layoutGroup;
@@ -36,8 +39,15 @@ public class Captcha : MonoBehaviour
     private string _animalToClickName;
     private int _animalToClickCount;
 
+    private int _nbGoodAnswers = 0;
+
     private List<GameObject> _allButtons;
     private List<Coroutine> _allButtonsFadeCoroutines;
+
+    public void HideWelcomePanel()
+    {
+        _phoneWelcomePanelObject.SetActive(false);
+    }
 
     private void Awake()
     {
@@ -148,6 +158,7 @@ public class Captcha : MonoBehaviour
         _successImageObject.SetActive(false);
         CleanupCaptcha();
         _animalToClickCount = 0;
+        _phoneWelcomePanelObject.SetActive(true);
         GenerateCaptcha();
     }
 
@@ -158,6 +169,7 @@ public class Captcha : MonoBehaviour
         _failureImageObject.SetActive(false);
         CleanupCaptcha();
         _animalToClickCount = 0;
+        _phoneWelcomePanelObject.SetActive(true);
         GenerateCaptcha();
     }
 
@@ -197,6 +209,8 @@ public class Captcha : MonoBehaviour
         if (_animalToClickCount == 0 && !_failureImageObject.activeSelf)
         {
             GameManager.Instance.IncreaseSolvedQuestionsCount();
+            outputReponse[_nbGoodAnswers].GetComponent<TMP_Text>().alpha = 255.0f;
+            _nbGoodAnswers += 1;
             StartCoroutine(ShowSuccessAndGenerateNextCaptcha());
         }
 
@@ -207,7 +221,7 @@ public class Captcha : MonoBehaviour
         for (float elapsedTime = 0f; elapsedTime < _buttonFadeDuration; elapsedTime += Time.deltaTime)
         {
             float normalizedTime = elapsedTime / _buttonFadeDuration;
-            button.GetComponent<Image>().color = Color.Lerp(buttonColor, new Color(buttonColor.r, buttonColor.g, buttonColor.b, 1), normalizedTime);
+            button.GetComponent<Image>().color = Color.Lerp(buttonColor, new Color(buttonColor.r, buttonColor.g, buttonColor.b, 255), normalizedTime);
             button.transform.GetChild(0).GetComponent<Image>().color = Color.Lerp(imageColor, new Color(imageColor.r, imageColor.g, imageColor.b, 1), normalizedTime);
             yield return null;
         }

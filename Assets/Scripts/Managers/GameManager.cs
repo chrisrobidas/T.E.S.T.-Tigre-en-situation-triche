@@ -12,13 +12,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _endGamePanel;
     [SerializeField] GameObject _defeatPanel;
 
+    [Header("Grades Images")]
+    [SerializeField] GameObject _goodImageObject;
+    [SerializeField] GameObject _okayImageObject;
+    [SerializeField] GameObject _badImageObject;
+
     [Header("Timer")]
     [SerializeField] TMP_Text _timerText;
     [SerializeField] TMP_Text _resultText;
 
     public static GameManager Instance { get; private set; }
 
-    private int _solvedQuestionsCount;
+    public int _solvedQuestionsCount;
 
     public void IncreaseSolvedQuestionsCount()
     {
@@ -56,13 +61,27 @@ public class GameManager : MonoBehaviour
 
     private void ShowEndGamePanel()
     {
-        _resultText.text = "" + (int)(((float)_solvedQuestionsCount / _questionsToSolve) * 100) + "%";
+        int result = (int)(((float)_solvedQuestionsCount / _questionsToSolve) * 100);
+        _resultText.text = result + "%";
+
+        if (result >= 70)
+        {
+            _goodImageObject.SetActive(true);
+        }
+        else if (result >= 40)
+        {
+            _okayImageObject.SetActive(true);
+        }
+        else
+        {
+            _badImageObject.SetActive(true);
+        }
 
         _endGamePanel.SetActive(true);
         Time.timeScale = 0.0f;
     }
 
-    private void ShowDefeatPanel()
+    public void ShowDefeatPanel()
     {
         _defeatPanel.SetActive(true);
         Time.timeScale = 0.0f;
@@ -71,10 +90,12 @@ public class GameManager : MonoBehaviour
     public void HandleRestartClicked()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
     }
 
     public void HandleMainMenuClicked()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 }

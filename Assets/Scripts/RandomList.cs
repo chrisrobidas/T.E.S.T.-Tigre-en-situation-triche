@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class RandomList : MonoBehaviour
 {
     List<string> m_HarcCodedStrings = new List<string>();
+    List<string> m_HarcCodedStrings_Reponse = new List<string>();
+
     public GameObject[] output;
+    public GameObject[] outputReponse;
 
     void Start()
     {
@@ -22,28 +25,50 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings.Add("Où pouvons-nous trouver des tigres blancs ?");
         m_HarcCodedStrings.Add("Qui est le plus fort entre un tigre et un lion ?");
 
+        m_HarcCodedStrings_Reponse.Add("2");
+        m_HarcCodedStrings_Reponse.Add("12 tonnes");
+        m_HarcCodedStrings_Reponse.Add("Ce soir");
+        m_HarcCodedStrings_Reponse.Add("Vous bien sûr");
+        m_HarcCodedStrings_Reponse.Add("Jonathan");
+        m_HarcCodedStrings_Reponse.Add("50Km/h");
+        m_HarcCodedStrings_Reponse.Add("Si tu le caches dans ta cave");
+        m_HarcCodedStrings_Reponse.Add("Les humains");
+        m_HarcCodedStrings_Reponse.Add("Asie du sud");
+        m_HarcCodedStrings_Reponse.Add("Le tigre");
+
+        ShuffleLists();
+
         FillList();
     }
 
     void FillList()
     {
-        ShuffleList(m_HarcCodedStrings);
-
         for (int i = 0; i < Mathf.Min(m_HarcCodedStrings.Count, output.Length); i++)
         {
             var text = output[i].GetComponent<TMP_Text>();
+            var text2 = outputReponse[i].GetComponent<TMP_Text>();
             text.text = m_HarcCodedStrings[i];
+            text2.text = m_HarcCodedStrings_Reponse[i];
+            outputReponse[i].GetComponent<TMP_Text>().alpha = 0.0f;
         }
     }
 
-    void ShuffleList<T>(List<T> list)
+    void ShuffleLists()
     {
-        for (int i = 0; i < list.Count; i++)
+        // Utiliser le même ordre de mélange pour les deux listes
+        for (int i = 0; i < m_HarcCodedStrings.Count; i++)
         {
-            int randomIndex = Random.Range(i, list.Count);
-            T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            int randomIndex = Random.Range(i, m_HarcCodedStrings.Count);
+
+            // Échanger les éléments dans la liste m_HarcCodedStrings
+            string temp = m_HarcCodedStrings[i];
+            m_HarcCodedStrings[i] = m_HarcCodedStrings[randomIndex];
+            m_HarcCodedStrings[randomIndex] = temp;
+
+            // Échanger les éléments dans la liste m_HarcCodedStrings_Reponse
+            string temp2 = m_HarcCodedStrings_Reponse[i];
+            m_HarcCodedStrings_Reponse[i] = m_HarcCodedStrings_Reponse[randomIndex];
+            m_HarcCodedStrings_Reponse[randomIndex] = temp2;
         }
     }
 }

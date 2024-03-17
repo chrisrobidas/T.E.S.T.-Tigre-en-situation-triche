@@ -80,5 +80,6 @@ public class PauseMenuManager : MonoBehaviour
     public void HandleAbandonClicked()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 }

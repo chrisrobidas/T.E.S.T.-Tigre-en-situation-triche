@@ -63,7 +63,7 @@ public class Prof : MonoBehaviour
                 break;
             }
         }
-        if (i == 3 && alertState < AlertLevel.Alert)
+        if (i == (int)AlertLevel.Catching && alertState < AlertLevel.Alert)
         {
             i = (int)AlertLevel.Alert;
         }
