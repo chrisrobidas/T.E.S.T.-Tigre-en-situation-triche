@@ -24,17 +24,50 @@ public class RandomList : MonoBehaviour
         m_HarcCodedStrings.Add("Quels sont les prédateurs du tigre blanc ?");
         m_HarcCodedStrings.Add("Où pouvons-nous trouver des tigres blancs ?");
         m_HarcCodedStrings.Add("Qui est le plus fort entre un tigre et un lion ?");
+        m_HarcCodedStrings.Add("Est-ce que les ananas vont sur la pizza ?");
+        m_HarcCodedStrings.Add("Quel est le bébé du tigre ?");
+        m_HarcCodedStrings.Add("Combien pèse Madame Griffe  ?");
+        m_HarcCodedStrings.Add("iOS ou Android ? ");
+        m_HarcCodedStrings.Add("Pourquoi les magasins ouverts 24h/24 ont-ils des serrures ?");
+        m_HarcCodedStrings.Add("Qui était là en premier : l'œuf ou la poule ?");
+        m_HarcCodedStrings.Add("Pourquoi les biscuits durs deviennent-ils mous et inversement ?");
+        m_HarcCodedStrings.Add("Quel est le synonyme de synonyme ?");
+        m_HarcCodedStrings.Add("Comment s'appelait le Capitaine Crochet avant de perdre sa main ?");
+        m_HarcCodedStrings.Add("Burger King ou Mcdonalds ");
+        m_HarcCodedStrings.Add("Quelles sont les 20 premières décimales de PI");
+        m_HarcCodedStrings.Add("Quel est le mélange du tigre et du lion");
 
-        m_HarcCodedStrings_Reponse.Add("2");
-        m_HarcCodedStrings_Reponse.Add("12 tonnes");
-        m_HarcCodedStrings_Reponse.Add("Ce soir");
-        m_HarcCodedStrings_Reponse.Add("Vous bien sûr");
-        m_HarcCodedStrings_Reponse.Add("Jonathan");
-        m_HarcCodedStrings_Reponse.Add("50Km/h");
-        m_HarcCodedStrings_Reponse.Add("Si tu le caches dans ta cave");
-        m_HarcCodedStrings_Reponse.Add("Les humains");
-        m_HarcCodedStrings_Reponse.Add("Asie du sud");
+
+        m_HarcCodedStrings_Reponse.Add("2.");
+        m_HarcCodedStrings_Reponse.Add("12 tonnes.");
+        m_HarcCodedStrings_Reponse.Add("Ce soir.");
+        m_HarcCodedStrings_Reponse.Add("Vous bien sûr.");
+        m_HarcCodedStrings_Reponse.Add("Jonathan.");
+        m_HarcCodedStrings_Reponse.Add("50Km/h.");
+        m_HarcCodedStrings_Reponse.Add("Si tu le caches dans ta cave.");
+        m_HarcCodedStrings_Reponse.Add("Les humains.");
+        m_HarcCodedStrings_Reponse.Add("Asie du sud.");
         m_HarcCodedStrings_Reponse.Add("Le tigre");
+        m_HarcCodedStrings_Reponse.Add("Non, ce ne serait plus une pizza.");
+        m_HarcCodedStrings_Reponse.Add(" Le tigreau.");
+        m_HarcCodedStrings_Reponse.Add("Entre 65 et 170 kilos.");
+        m_HarcCodedStrings_Reponse.Add("Android.");
+        m_HarcCodedStrings_Reponse.Add("Pourquoi pas ? ");
+        m_HarcCodedStrings_Reponse.Add("L'oeuf.");
+        m_HarcCodedStrings_Reponse.Add("Pour encourager le capitalisme. ");
+        m_HarcCodedStrings_Reponse.Add("Identique.");
+        m_HarcCodedStrings_Reponse.Add("Jacques.");
+        m_HarcCodedStrings_Reponse.Add("Mcdo pour les frites.");
+        m_HarcCodedStrings_Reponse.Add("14159265358979323846.");
+        m_HarcCodedStrings_Reponse.Add("Le ligre. ");
+
+
+
+
+
+
+
+
 
         ShuffleLists();
 
@@ -43,7 +76,7 @@ public class RandomList : MonoBehaviour
 
     void FillList()
     {
-        for (int i = 0; i < Mathf.Min(m_HarcCodedStrings.Count, output.Length); i++)
+        for (int i = 0; i < 10; i++)
         {
             var text = output[i].GetComponent<TMP_Text>();
             var text2 = outputReponse[i].GetComponent<TMP_Text>();
@@ -56,7 +89,7 @@ public class RandomList : MonoBehaviour
     void ShuffleLists()
     {
         // Utiliser le même ordre de mélange pour les deux listes
-        for (int i = 0; i < m_HarcCodedStrings.Count; i++)
+        for (int i = 0; i < 10; i++)
         {
             int randomIndex = Random.Range(i, m_HarcCodedStrings.Count);
 
