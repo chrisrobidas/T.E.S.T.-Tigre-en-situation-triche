@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject PlayCircle;
     public GameObject OptionCircle;
+    public GameObject CreditsCircle;
     public GameObject QuitCircle;
 
 
@@ -20,6 +21,7 @@ public class MenuManager : MonoBehaviour
     public void DeactivateCircles(){
         PlayCircle.SetActive(false);
         OptionCircle.SetActive(false);
+        CreditsCircle.SetActive(false);
         QuitCircle.SetActive(false);
     }
 
@@ -45,7 +47,18 @@ public class MenuManager : MonoBehaviour
         DeactivateCircles();
         OptionCircle.SetActive(true);
     }
-    
+
+    public void HandleCreditsClicked()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void HandleCreditsHovered()
+    {
+        DeactivateCircles();
+        CreditsCircle.SetActive(true);
+    }
+
     public void HandleQuitClicked()
     {
         #if UNITY_EDITOR
