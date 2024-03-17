@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
     public GameObject OptionCircle;
     public GameObject QuitCircle;
 
+    public GameObject SettingsCanvas;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,17 +37,22 @@ public class MenuManager : MonoBehaviour
         PlayCircle.SetActive(true);
     }
 
-    public void HandleOptionsClicked()
-    {
-
-    }
-
     public void HandleOptionsHovered()
     {
         DeactivateCircles();
         OptionCircle.SetActive(true);
     }
-    
+
+    public void HandleOptionsClicked()
+    {
+        SettingsCanvas.SetActive(true);
+    }
+
+    public void HandleBackClicked()
+    {
+        SettingsCanvas.SetActive(false);
+    }
+
     public void HandleQuitClicked()
     {
         #if UNITY_EDITOR
